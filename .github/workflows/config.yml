@@ -1,0 +1,41 @@
+name: Run Get request every 20 minutes
+
+on:
+  schedule:
+    - cron: "*/20 * * * *" # Runs every 5 minutes
+
+jobs: 
+  run-get-request:
+    runs-on: ubuntu-latest
+
+    steps:
+      
+      -name:checkout repo
+       uses:actions/checkout@v3
+          with:
+          fetch-depth: 0  # Fetch all history for all branches to avoid shallow clone issues
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+
+      - name: Install requests library
+        run: pip install requests
+
+      - name: Run Python script
+        run: python main.py
+
+      - name: Commit and push results
+        run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "GitHub Actions"
+          
+          # Pull the latest changes to avoid push rejection
+          git pull origin main --rebase
+
+          # Add new files, commit, and push
+          git add responses/
+          git commit -m "Add new response file"
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Meh-ar/simple-github-action.git
+
