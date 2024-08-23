@@ -1,18 +1,19 @@
 name: Run Get request every 20 minutes
 
+
 on:
+
   schedule:
-    - cron: "*/20 * * * *" # Runs every 5 minutes
+    - cron: "*/20 * * * *"  # Runs every 20 minutes
 
 jobs: 
   run-get-request:
     runs-on: ubuntu-latest
 
     steps:
-      
-      -name:checkout repo
-       uses:actions/checkout@v3
-          with:
+      - name: Checkout repository
+        uses: actions/checkout@v3
+        with:
           fetch-depth: 0  # Fetch all history for all branches to avoid shallow clone issues
 
       - name: Set up Python
