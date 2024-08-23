@@ -1,8 +1,9 @@
-name: Run GET request every 30 minutes
+name: Your Workflow Name
 
 on:
   schedule:
     - cron: "*/30 * * * *"  # Runs every 30 minutes
+  workflow_dispatch:  # Allows manual triggering
 
 jobs:
   run-get-request:
@@ -23,15 +24,13 @@ jobs:
       - name: Run Python script
         run: python main.py
 
-
-
       - name: Commit and push results
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "GitHub Actions"
-          
+
           # Pull the latest changes to avoid push rejection
-          #git pull origin main --rebase
+          # git pull origin main --rebase
 
           # Add new files, commit, and push
           git add responses/
