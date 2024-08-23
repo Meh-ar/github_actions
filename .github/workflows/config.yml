@@ -37,5 +37,5 @@ jobs:
           # Add new files, commit, and push
           git add responses/
           git commit -m "Add new response file"
-          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Meh-ar/simple-github-action.git
+          git push https://x-access-token:${{ secrets.PAT_TOKEN }}@github.com/Meh-ar/github-action.git
 
